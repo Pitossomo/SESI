@@ -1,0 +1,23 @@
+O projeto de um app web de gerenciamento de usuários e seus veículos com Nest.js e Next.js envolve o desenvolvimento de uma aplicação que permita aos usuários realizar o cadastro e gerenciamento de seus veículos, incluindo informações como modelo, placa e ano de fabricação.
+
+Para isso, será necessário utilizar o Nest.js como framework back-end para a criação da API RESTful que será responsável pela interação com o banco de dados e gerenciamento das informações dos usuários e seus veículos. O Nest.js é uma plataforma Node.js escalável e robusta, que utiliza TypeScript para garantir a segurança e a facilidade na manutenção do código.
+
+Além disso, será necessário utilizar o Next.js como framework front-end para a criação do layout da aplicação. O Next.js é um framework React que permite a criação de páginas estáticas e dinâmicas, além de oferecer recursos como roteamento, pré-renderização e otimização de imagens, garantindo uma experiência de usuário agradável e responsiva.
+
+Algumas funcionalidades que podem ser incluídas na aplicação são:
+
+Cadastro e login de usuários
+Adição, edição e remoção de veículos
+Visualização dos dados dos veículos cadastrados
+Pesquisa de veículos por modelo, placa ou ano de fabricação
+Exibição de informações úteis, como licenciamento e documentação dos veículos
+Possibilidade de inclusão de imagens dos veículos cadastrados
+Para garantir a segurança da aplicação, será necessário utilizar técnicas de autenticação e autorização, como o uso de tokens JWT e permissões de acesso para cada tipo de usuário.
+
+Para a persistência de dados, pode-se utilizar um banco de dados relacional como o MySQL ou um banco de dados não-relacional como o MongoDB.
+
+Em resumo, o projeto de um app web de gerenciamento de usuários e seus veículos com Nest.js e Next.js envolve a criação de uma API RESTful segura e escalável, que se comunica com um banco de dados para gerenciamento das informações dos usuários e seus veículos, e uma interface de usuário responsiva e otimizada para garantir uma boa experiência do usuário.
+
+
+autenticação video: https://fabricadesinapse.gitbook.io/sinapse-book/nestjs/autenticacao-sistema-de-login-com-token-jwt
+|--> https://www.youtube.com/watch?v=3z6Cs_PtYc0 - parei em 1:51:23 
