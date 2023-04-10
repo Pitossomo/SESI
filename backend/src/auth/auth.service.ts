@@ -35,6 +35,7 @@ export class AuthService {
   login(user: User): UserToken {
     const payload: UserPayload = {
       sub: user.id,
+      date_of_birth: user.date_of_birth,
       address: user.address,
       email: user.email,
       name_completed: user.name_completed,
@@ -43,8 +44,20 @@ export class AuthService {
 
     const jwtToken = this.jwtService.sign(payload)
 
+    const expirationTime = Date.now() + 10 * 24 * 60 * 60 * 1000 // 10 dias em milissegundos
+    const expirationTimeInSeconds = Math.floor(expirationTime / 1000) // converte para segundos
+
     return {
       access_token: jwtToken,
+      exp: expirationTimeInSeconds,
+      user: {
+        id: payload.sub,
+        address: payload.address,
+        date_of_birth: payload.date_of_birth,
+        email: payload.email,
+        name_completed: payload.name_completed,
+        number_phone: payload.number_phone,
+      },
     }
   }
 }
