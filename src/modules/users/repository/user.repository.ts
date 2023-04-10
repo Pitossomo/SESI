@@ -3,14 +3,14 @@ import { PrismaService } from 'src/modules/prisma/prisma.service'
 import * as bcrypt from 'bcrypt'
 import { CreateUserDto } from '../dto/create-user.dto'
 import { UpdateUserDto } from '../dto/update-user.dto'
-import { UserDto } from '../entities/user.entity'
+import { PartialUser } from '../entities/user.entity'
 import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class UserRepository {
   constructor(private readonly prismaService: PrismaService) {}
 
-  async findAll(): Promise<UserDto[]> {
+  async findAll(): Promise<PartialUser[]> {
     return await this.prismaService.user.findMany({
       select: {
         address: true,
@@ -24,7 +24,7 @@ export class UserRepository {
     })
   }
 
-  async findById(id: string): Promise<UserDto> {
+  async findById(id: string): Promise<PartialUser> {
     return await this.prismaService.user.findUnique({
       where: {
         id: id,
@@ -41,7 +41,7 @@ export class UserRepository {
     })
   }
 
-  async findByEmail(email: string): Promise<UserDto> {
+  async findByEmail(email: string): Promise<PartialUser> {
     return await this.prismaService.user.findUnique({
       where: {
         email: email,
@@ -52,7 +52,7 @@ export class UserRepository {
     })
   }
 
-  async create(createUserDto: CreateUserDto): Promise<UserDto> {
+  async create(createUserDto: CreateUserDto): Promise<PartialUser> {
     createUserDto.password = await bcrypt.hash(createUserDto.password, 10)
 
     return await this.prismaService.user.create({
@@ -69,7 +69,7 @@ export class UserRepository {
     })
   }
 
-  async update(id: string, UpdateUserDto: UpdateUserDto): Promise<UserDto> {
+  async update(id: string, UpdateUserDto: UpdateUserDto): Promise<PartialUser> {
     return await this.prismaService.user.update({
       data: UpdateUserDto,
       where: {
@@ -87,7 +87,7 @@ export class UserRepository {
     })
   }
 
-  async delete(id: string): Promise<UserDto> {
+  async delete(id: string): Promise<PartialUser> {
     return await this.prismaService.user.delete({
       where: {
         id,

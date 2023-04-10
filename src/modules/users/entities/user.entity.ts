@@ -10,4 +10,4 @@ export class User {
   number_phone: string
 }
 
-export class UserDto extends PartialType(User) {}
+export class PartialUser extends PartialType(User) {}

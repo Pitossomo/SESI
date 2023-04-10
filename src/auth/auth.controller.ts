@@ -1,5 +1,6 @@
 import {
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -10,8 +11,10 @@ import { AuthService } from './auth.service'
 import { LocalAuthGuar } from './guards/local-auth.guard'
 import { AuthRequest } from './models/auth-request'
 import { IsPublic } from './decorators/is-public.decorator'
+import { CurrentUser } from './decorators/current-user.decorator'
+import { PartialUser } from 'src/modules/users/entities/user.entity'
 
-@Controller('auth')
+@Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -21,5 +24,10 @@ export class AuthController {
   @UseGuards(LocalAuthGuar)
   login(@Req() req: AuthRequest) {
     return this.authService.login(req.user)
+  }
+
+  @Get('me')
+  getMe(@CurrentUser() user: PartialUser) {
+    return user
   }
 }
