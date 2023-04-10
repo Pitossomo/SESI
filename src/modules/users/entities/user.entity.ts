@@ -1,3 +1,5 @@
+import { PartialType } from '@nestjs/mapped-types'
+
 export class User {
   id: string
   name_completed: string
@@ -7,3 +9,5 @@ export class User {
   address: string
   number_phone: string
 }
+
+export class UserDto extends PartialType(User) {}
