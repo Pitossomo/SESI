@@ -2,13 +2,17 @@ import { Injectable } from '@nestjs/common'
 import { UsersService } from 'src/modules/users/users.service'
 import * as bcrypt from 'bcrypt'
 import { UnauthorizedError } from './errors/unauthorized.error'
+import { User } from 'src/modules/users/entities/user.entity'
+import { UserPayload } from './models/user-payload'
+import { JwtService } from '@nestjs/jwt'
+import { UserToken } from './models/user-token'
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UsersService) {}
+  constructor(
+    private readonly userService: UsersService,
+    private readonly jwtService: JwtService,
+  ) {}
 
-  login() {
-    throw new Error('Method not implemented.')
-  }
   async validateUser(email: string, password: string) {
     const user = await this.userService.findByEmail(email)
 
@@ -25,6 +29,23 @@ export class AuthService {
     return {
       ...user,
       password: undefined,
+    }
+  }
+
+  login(user: User): UserToken {
+    const payload: UserPayload = {
+      sub: user.id,
+      adress: user.address,
+      email: user.email,
+      name_completed: user.name_completed,
+      id: user.id,
+      number_phone: user.number_phone,
+    }
+
+    const jwtToken = this.jwtService.sign(payload)
+
+    return {
+      access_token: jwtToken,
     }
   }
 }
