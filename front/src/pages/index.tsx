@@ -1,37 +1,11 @@
-import axios, { AxiosResponse } from 'axios'
-import Router from 'next/router'
-import { setCookie } from 'nookies'
+import { AuthContext } from '@/contexts/auth-context'
+
+import { useContext } from 'react'
 import { useForm } from 'react-hook-form'
-
-type UserToken = {
-  access_token: string
-  exp: number
-}
-
-type SignInData = {
-  email: string
-  password: string
-}
-
-async function signIn({ email, password }: SignInData) {
-  const { data }: AxiosResponse<UserToken> = await axios.post(
-    'http://localhost:4000/login',
-    {
-      email,
-      password,
-    },
-  )
-
-  console.log(data)
-  setCookie(undefined, 'gereciamento-de-veiculos.token', data.access_token, {
-    maxAge: data.exp,
-  })
-
-  Router.push('/dashboard')
-}
 
 export default function Home() {
   const { register, handleSubmit } = useForm()
+  const { signIn } = useContext(AuthContext)
 
   const handleSignIn = async (data: any) => {
     try {

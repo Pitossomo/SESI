@@ -42,9 +42,6 @@ export class AuthService {
       number_phone: user.number_phone,
     }
 
-    console.log(user)
-    console.log(payload)
-
     const jwtToken = this.jwtService.sign(payload)
 
     return {

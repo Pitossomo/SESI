@@ -46,9 +46,6 @@ export class UserRepository {
       where: {
         email: email,
       },
-      select: {
-        password: true,
-      },
     })
   }
 
