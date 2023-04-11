@@ -1,10 +1,44 @@
+import axios, { AxiosResponse } from 'axios'
+import Router from 'next/router'
+import { setCookie } from 'nookies'
 import { useForm } from 'react-hook-form'
+
+type UserToken = {
+  access_token: string
+  exp: number
+}
+
+type SignInData = {
+  email: string
+  password: string
+}
+
+async function signIn({ email, password }: SignInData) {
+  const { data }: AxiosResponse<UserToken> = await axios.post(
+    'http://localhost:4000/login',
+    {
+      email,
+      password,
+    },
+  )
+
+  console.log(data)
+  setCookie(undefined, 'gereciamento-de-veiculos.token', data.access_token, {
+    maxAge: data.exp,
+  })
+
+  Router.push('/dashboard')
+}
 
 export default function Home() {
   const { register, handleSubmit } = useForm()
 
-  const handleSignIn = (data: any) => {
-    console.log(data)
+  const handleSignIn = async (data: any) => {
+    try {
+      signIn(data)
+    } catch (error) {
+      console.log('Error na requisição: ', error)
+    }
   }
 
   return (
@@ -35,7 +69,7 @@ export default function Home() {
               Password
             </label>
             <input
-              {...register('passsword')}
+              {...register('password')}
               type="password"
               className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />

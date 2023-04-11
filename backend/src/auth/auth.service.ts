@@ -42,22 +42,14 @@ export class AuthService {
       number_phone: user.number_phone,
     }
 
-    const jwtToken = this.jwtService.sign(payload)
+    console.log(user)
+    console.log(payload)
 
-    const expirationTime = Date.now() + 10 * 24 * 60 * 60 * 1000 // 10 dias em milissegundos
-    const expirationTimeInSeconds = Math.floor(expirationTime / 1000) // converte para segundos
+    const jwtToken = this.jwtService.sign(payload)
 
     return {
       access_token: jwtToken,
-      exp: expirationTimeInSeconds,
-      user: {
-        id: payload.sub,
-        address: payload.address,
-        date_of_birth: payload.date_of_birth,
-        email: payload.email,
-        name_completed: payload.name_completed,
-        number_phone: payload.number_phone,
-      },
+      exp: +process.env.expirationTimeInSeconds,
     }
   }
 }
