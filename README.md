@@ -18,7 +18,7 @@ git clone https://github.com/Sjhns/SESI.git
 2. Instale as dependências:
 
 ```zsh
-cd sistema-de-gerenciamento
+cd SESI
 pnpm install
 ```
 3. Execute as migrações do banco de dados:
