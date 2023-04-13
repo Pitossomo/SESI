@@ -2,6 +2,15 @@
 
 Este é um sistema de gerenciamento de veículos e rastreamento que foi desenvolvido usando Next.js no front-end, Nest.js no back-end e React Native no aplicativo móvel. Este sistema foi criado para permitir que os proprietários de frotas monitorem a localização de seus veículos em tempo real e gerenciem sua manutenção e programação de rotas.
 
+# Credenciais de acesso
+
+Utilize essas crediais para acessar a aplicação.
+
+```json
+"email": "maria@outlook.com",
+"password": "solAA123maria"
+```
+
 ## Requisitos de instalação
 
 * Node.js 14.x ou superior
