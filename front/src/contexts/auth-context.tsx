@@ -1,4 +1,4 @@
-import { createContext, ReactNode } from 'react'
+import { createContext, ReactNode, useState } from 'react'
 import axios, { AxiosResponse } from 'axios'
 import { setCookie } from 'nookies'
 import Router from 'next/router'
@@ -9,8 +9,19 @@ type SignInData = {
   password: string
 }
 
+type User = {
+  id: string
+  email: string
+  name_completed: string
+  address: string
+  number_phone: string
+}
+
 type AuthContextType = {
   signIn: (data: SignInData) => Promise<void>
+  signOut: () => void
+  handleUser: (userData: User) => void
+  user: User | null
 }
 
 type UserToken = {
@@ -21,6 +32,11 @@ type UserToken = {
 export const AuthContext = createContext({} as AuthContextType)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null)
+
+  function handleUser(userData: User) {
+    setUser(userData)
+  }
   async function signIn({ email, password }: SignInData) {
     const { data }: AxiosResponse<UserToken> = await axios.post(
       'http://localhost:4000/login',
@@ -41,7 +57,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     Router.push('/dashboard')
   }
 
+  async function signOut() {
+    console.log('Sign out')
+  }
   return (
-    <AuthContext.Provider value={{ signIn }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ signIn, signOut, handleUser, user }}>
+      {children}
+    </AuthContext.Provider>
   )
 }
