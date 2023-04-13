@@ -4,7 +4,7 @@ Este é um sistema de gerenciamento de veículos e rastreamento que foi desenvol
 
 # Credenciais de acesso
 
-Utilize essas crediais para acessar a aplicação.
+Utilize essas credenciais para acessar a aplicação.
 
 ```json
 "email": "maria@outlook.com",
