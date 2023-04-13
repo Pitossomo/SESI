@@ -1,14 +1,6 @@
-interface User {
-  user: {
-    id: string
-    email: string
-    name_completed: string
-    address: string
-    number_phone: string
-  }
-}
+import { User } from '@/@types/user'
 
-export const CardUser = ({ user }: User) => {
+export const CardUser = ({ user }: { user: User }) => {
   const { address, email, name_completed, number_phone } = user
   return (
     <div

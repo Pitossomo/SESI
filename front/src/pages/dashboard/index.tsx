@@ -1,25 +1,11 @@
 import { CardUser } from '@/components/card-user'
-import { AuthContext } from '@/contexts/auth-context'
 import { getAPIClient } from '@/services/axios'
 
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
-import { useContext } from 'react'
+import { User } from '@/@types/user'
 
-interface User {
-  user: {
-    id: string
-    email: string
-    name_completed: string
-    address: string
-    number_phone: string
-  }
-}
-
-export default function Dashboard({ user }: User) {
-  const { handleUser } = useContext(AuthContext)
-  handleUser(user)
-
+export default function Dashboard({ user }: { user: User }) {
   return <CardUser user={user} />
 }
 
