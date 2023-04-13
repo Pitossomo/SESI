@@ -1,5 +1,6 @@
 import { Logger } from '@nestjs/common'
 import {
+  MessageBody,
   OnGatewayConnection,
   OnGatewayDisconnect,
   OnGatewayInit,
@@ -16,11 +17,6 @@ export class VehicleGateway
   @WebSocketServer() server: Server
   private logger: Logger = new Logger('WebSocket-Vehicle-Gateway')
 
-  @SubscribeMessage('msgToServer')
-  handleMessage(client: Socket, payload: any): void {
-    this.server.emit('msgToClient', payload)
-  }
-
   afterInit(server: any) {
     this.logger.log('Websocket iniciado')
   }
@@ -31,5 +27,11 @@ export class VehicleGateway
 
   handleDisconnect(client: any) {
     this.logger.log(`Cliente desconectou-se: ${client.id}`)
+  }
+
+  @SubscribeMessage('send-message')
+  sendMessage(@MessageBody() body, client: Socket, payload: any): void {
+    console.log(body)
+    // this.server.emit('msgToClient', payload)
   }
 }
